@@ -1,6 +1,6 @@
 ---
 name: opc-niche-positioning
-description: Find and position a viable niche market for a one-person company by combining market mapping and customer segmentation. Use when Codex needs to explain niche concepts when needed, check founder-resource prerequisites, ask one question at a time, generate multiple niche options, and write user-confirmed positioning outputs into `opc-doc/`.
+description: Find and position a viable niche market for a one-person company by combining market mapping, customer segmentation, and optional X/Twitter public-signal research. Use when Codex needs to explain niche concepts, check founder-resource prerequisites, ask one question at a time, separate evidence from assumptions, generate multiple niche options, and write user-confirmed positioning outputs into `opc-doc/`.
 ---
 
 # 利基定位
@@ -110,6 +110,9 @@ description: Find and position a viable niche market for a one-person company by
 - 不直接替用户选市场，而是生成 3 个候选利基，并附加 `4. 我有自己的方案`
 - 用户确认后再写入正式结果
 - 不直接给推荐结论，只做方案分析
+- 把外部事实标为证据，把尚未验证的判断标为假设
+- 只有目标用户确实活跃在 X，且新数据可能改变判断时，才扫描 X 公开信号
+- 没有可靠证据时降低置信度，不把帖子数量或互动量解释为市场规模或付费意愿
 - **本阶段只做"是谁、痛什么、为什么有切口"，不做执行层任何内容**
 
 ---
@@ -159,6 +162,8 @@ description: Find and position a viable niche market for a one-person company by
    - 有没有某类客户，以前只能找大公司服务，现在可以找个体了？为什么？
    - 处于原有商业路径上的大公司，为什么没有追这个方向？（价值网络冲突在哪里？）
 
+   先检查用户笔记能否支撑这些判断。需要最新公开讨论时，按 [X 公开信号扫描](references/x-public-signal-research.md) 收集有边界的补充证据。X 不相关、用户不同意、缺少工具或缺少凭证时跳过，不阻塞流程。
+
 3. **再分析环1（新杠杆 / 元杠杆）**——聚焦在这个行业里能用的无需许可杠杆：
    - 代码/工具：能不能用软件或自动化流程代替人力重复劳动？
    - 媒体：能不能把知识或经验制作成可以反复使用的内容资产？
@@ -177,6 +182,7 @@ description: Find and position a viable niche market for a one-person company by
    激活的环：✅/❌ 环1（新/元杠杆）| ✅/❌ 环2（边界变动）| ✅/❌ 环3（资源匹配）
    时间窗口：为什么现在是合适的时机，窗口还有多宽
    大公司为什么不来：价值网络冲突 / 体量太小 / 速度太慢
+   证据与假设：证据编号、尚待验证的判断、置信度（高/中/低）
    机会评分（六维，每项 1-5 分）：
      痛点强度 X | 杠杆密度 X | 窗口红利 X | 资源匹配 X | 交付标准化 X | 现金流潜力 X
    总分：XX/30
@@ -224,6 +230,7 @@ description: Find and position a viable niche market for a one-person company by
 - `opc-doc/outputs/01-resource-audit/inventory.md`（资源盘点结论）
 - `opc-doc/inputs/market-notes.md`（如有）
 - `opc-doc/inputs/raw-ideas.md`（如有）
+- `opc-doc/inputs/x-public-signals.json`（如有；X 公开信号及采集范围）
 
 如果前置资源盘点缺失，先检查当前对话里是否已有足够创始人资源信息。
 
@@ -238,9 +245,9 @@ description: Find and position a viable niche market for a one-person company by
 
 **写入文件：**
 
-- `opc-doc/outputs/02-niche-positioning/three-ring-analysis.md`（三环分析结论：可用杠杆清单、行业边界变动清单、与资源的重叠识别）
-- `opc-doc/outputs/02-niche-positioning/candidates.md`（3 个候选利基及机会评分六维明细）
-- `opc-doc/outputs/02-niche-positioning/target-segment.json`（确认的目标细分：`{"segment": "...", "core_pain": "...", "timing": "...", "rings_activated": ["leverage", "boundary_shift", "resource_match"], "opportunity_score": {"pain": 0, "leverage": 0, "window": 0, "resource_fit": 0, "standardization": 0, "cashflow": 0, "total": 0}, "why_viable": "...", "why_big_players_wont": "..."}`）
+- `opc-doc/outputs/02-niche-positioning/three-ring-analysis.md`（三环分析结论：可用杠杆清单、行业边界变动清单、与资源的重叠识别、证据与假设表）
+- `opc-doc/outputs/02-niche-positioning/candidates.md`（3 个候选利基、证据编号、置信度及机会评分六维明细）
+- `opc-doc/outputs/02-niche-positioning/target-segment.json`（确认的目标细分：`{"segment": "...", "core_pain": "...", "timing": "...", "rings_activated": ["leverage", "boundary_shift", "resource_match"], "evidence_ids": ["E1"], "confidence": "medium", "opportunity_score": {"pain": 0, "leverage": 0, "window": 0, "resource_fit": 0, "standardization": 0, "cashflow": 0, "total": 0}, "why_viable": "...", "why_big_players_wont": "..."}`）
 - `opc-doc/outputs/02-niche-positioning/positioning-statement.md`（定位陈述：为谁、解决什么、为什么你、为什么现在）
 
 **更新状态文件：**
